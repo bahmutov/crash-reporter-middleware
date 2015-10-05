@@ -1,6 +1,6 @@
 {
   "name": "crash-reporter-middleware",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Middleware for reporting crashes to any error monitoring service (Sentry, Raygun, etc)",
   "main": "index.js",
   "scripts": {

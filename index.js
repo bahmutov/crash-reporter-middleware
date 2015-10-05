@@ -35,7 +35,7 @@ function initRaygunClient(raygunApiKey, addRenderValue, commitId) {
 
   console.log('initialized Raygun error reporting, commit id %s, version %s',
     commitId, raygunVersion);
-  return raygunClient;
+  return raygunClient.expressHandler;
 }
 
 function initMiddleware(config, addRenderValue, commitId) {
