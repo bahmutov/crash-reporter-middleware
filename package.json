@@ -1,0 +1,37 @@
+{
+  "name": "crash-reporter-middleware",
+  "version": "1.0.0",
+  "description": "Middleware for reporting crashes to any error monitoring service (Sentry, Raygun, etc)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bahmutov/crash-reporter-middleware.git"
+  },
+  "keywords": [
+    "connect",
+    "express",
+    "middleware",
+    "crash",
+    "error",
+    "exception",
+    "reporting",
+    "sentry",
+    "raygun"
+  ],
+  "author": "Gleb Bahmutov <gleb.bahmutov@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bahmutov/crash-reporter-middleware/issues"
+  },
+  "homepage": "https://github.com/bahmutov/crash-reporter-middleware#readme",
+  "dependencies": {
+    "check-more-types": "2.1.1",
+    "last-commit": "0.2.3",
+    "lazy-ass": "0.6.0",
+    "raygun": "0.7.1",
+    "render-vars": "0.1.1"
+  }
+}
