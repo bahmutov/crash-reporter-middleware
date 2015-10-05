@@ -13,10 +13,18 @@ var excludedDomains = ['localhost', '127.0.0.1'];
 
 function noop() {}
 
+function isUnknown(id) {
+  return id === 'unknown';
+}
+
+function isValidCommit(id) {
+  return check.shortCommitId(id) || isUnknown(id)
+}
+
 function initRaygunClient(raygunApiKey, addRenderValue, commitId) {
   la(check.fn(addRenderValue), 'missing addRenderValue function');
   la(check.unemptyString(commitId), 'unknown commit id', commitId);
-  la(check.shortCommitId(commitId), 'not a commit sha', commitId);
+  la(isValidCommit(commitId), 'not a commit sha', commitId);
 
   var raygunClient = new raygun.Client().init({ apiKey: raygunApiKey });
   process.on('uncaughtException', function onError(err) {
@@ -38,15 +46,10 @@ function initRaygunClient(raygunApiKey, addRenderValue, commitId) {
   return raygunClient.expressHandler;
 }
 
-function isUnknown(id) {
-  return id === 'unknown';
-}
-
 function initMiddleware(config, addRenderValue, commitId) {
   la(check.fn(addRenderValue), 'missing addRenderValue function');
   la(check.unemptyString(commitId), 'unknown commit id', commitId);
-  la(check.shortCommitId(commitId) || isUnknown(commitId),
-    'not a commit sha', commitId);
+  la(isValidCommit(commitId), 'not a commit sha', commitId);
 
   console.log('init crash middleware for commit "%s"', commitId);
 
