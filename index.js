@@ -45,7 +45,7 @@ function initMiddleware(config, addRenderValue, commitId) {
 
   console.log('init crash middleware for commit %s', commitId);
 
-  var raygunApiKey = config('RAYGUN');
+  var raygunApiKey = config('RAYGUN') || config('RAYGUN_APIKEY');
   if (check.unemptyString(raygunApiKey)) {
     return initRaygunClient(raygunApiKey, addRenderValue, commitId);
   }
