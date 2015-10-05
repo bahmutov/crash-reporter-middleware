@@ -67,11 +67,12 @@ function initCrashReporting(config, server) {
 
 module.exports = initCrashReporting;
 
-if (!module.exports) {
-  // demo use case
-  initCrashReporting(noop)
+if (!module.parent) {
+  console.log('demo use case');
+  initCrashReporting(noop, noop)
     .then(function (client) {
       // there should be no client
       console.log('middleware client is noop?', client === noop);
+      la(client === noop, 'not noop', client);
     }).done();
 }
