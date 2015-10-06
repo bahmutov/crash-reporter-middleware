@@ -1,8 +1,8 @@
 require('lazy-ass');
 var check = require('check-more-types');
 var raygun = require('raygun');
+var exists = require('fs').existsSync;
 
-var pkg = require('./package.json');
 var excludedDomains = ['localhost', '127.0.0.1'];
 
 function initRaygunClient(raygunApiKey, addRenderValue, commitId) {
@@ -20,9 +20,12 @@ function initRaygunClient(raygunApiKey, addRenderValue, commitId) {
 
   process.on('uncaughtException', onError);
 
-  // raygun requires version to be 4 numbers, add fake one
-  var raygunVersion = '0.' + pkg.version;
-  raygunClient.setVersion(raygunVersion);
+  if (exists('package.json')) {
+    var pkg = require('./package.json');
+    // raygun requires version to be 4 numbers, add fake one
+    var raygunVersion = '0.' + pkg.version;
+    raygunClient.setVersion(raygunVersion);
+  }
 
   addRenderValue('raygunApiKey', raygunApiKey || '');
   addRenderValue('raygunVersion', raygunVersion || '');
