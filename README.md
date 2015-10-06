@@ -18,6 +18,41 @@
 [crash-reporter-middleware-devdependencies-image]: https://david-dm.org/bahmutov/crash-reporter-middleware/dev-status.png
 [crash-reporter-middleware-devdependencies-url]: https://david-dm.org/bahmutov/crash-reporter-middleware#info=devDependencies
 
+```js
+var app = express();
+// all your middleware and routes
+// at the very end
+var initCrashReporter = require('crash-reporter-middleware');
+initCrashReporter(getSettings, app)
+    .then(function (crashMiddleware) {
+        if (crashMiddleware) {
+            app.use(crashMiddleware);
+        }
+        http.createServer(app).listen(port);
+    });
+```
+
+This middleware tries to figure out what error reporting service you have by inspecting the environment
+variables. For example, if you have `RAYGUN_APIKEY` in the environment, it will initialize the 
+[Raygun](https://www.npmjs.com/package/raygun) client.
+
+**getSettings** - a function that returns settings. For example if you just want to use the environment
+variables, you might write a function yourself
+
+```js
+function getEnv(key) {
+  return process.env[key];
+}
+initCrashReporter(getSettings, app)
+```
+
+If you use [nconf](https://www.npmjs.com/package/nconf), pass its `.get()` method after init,
+
+```js
+var conf = require('nconf')();
+initCrashReporter(conf.get.bind(conf), app)
+```
+
 Good companion middleware for testing the runtime exception setup is [crasher](https://www.npmjs.com/package/crasher).
 Just add to your server routes and curl GET the crash endpoint to generate exceptions.
 
