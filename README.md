@@ -53,8 +53,19 @@ var conf = require('nconf')();
 initCrashReporter(conf.get.bind(conf), app)
 ```
 
+For the real world use example, see how this module is used to setup the error reporting 
+in [next-update-stats](https://github.com/bahmutov/next-update-stats) in the file 
+[app.js](https://github.com/bahmutov/next-update-stats/blob/master/app.js)
+
 Good companion middleware for testing the runtime exception setup is [crasher](https://www.npmjs.com/package/crasher).
 Just add to your server routes and curl GET the crash endpoint to generate exceptions.
+
+## Error reporting services
+
+[Raygun.io](https://raygun.io/) via Heroku - just enable the free add-on for your Node application.
+It will add the `RAYGUN_APIKEY` to the list of config variables.
+
+Need some other service? Open an issue!
 
 ### Small print
 
