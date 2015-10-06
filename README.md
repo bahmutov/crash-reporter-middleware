@@ -18,9 +18,12 @@
 [crash-reporter-middleware-devdependencies-image]: https://david-dm.org/bahmutov/crash-reporter-middleware/dev-status.png
 [crash-reporter-middleware-devdependencies-url]: https://david-dm.org/bahmutov/crash-reporter-middleware#info=devDependencies
 
+Good companion middleware for testing the runtime exception setup is [crasher](https://www.npmjs.com/package/crasher).
+Just add to your server routes and curl GET the crash endpoint to generate exceptions.
+
 ### Small print
 
-Author: Gleb Bahmutov &copy; 2014
+Author: Gleb Bahmutov &copy; 2015
 
 * [@bahmutov](https://twitter.com/bahmutov)
 * [glebbahmutov.com](http://glebbahmutov.com)
