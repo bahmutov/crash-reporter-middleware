@@ -1,15 +1,13 @@
 require('lazy-ass');
 var check = require('check-more-types');
+
 // available crash reporting clients
-var raygun = require('raygun');
+var initRaygunClient = require('./src/raygun');
 
 var getLastCommitId = require('last-commit');
 la(check.fn(getLastCommitId), 'missing last commit function');
 var renderVars = require('render-vars');
 la(check.fn(renderVars), 'expected render vars function', renderVars);
-
-var pkg = require('./package.json');
-var excludedDomains = ['localhost', '127.0.0.1'];
 
 function noop() {}
 
@@ -21,29 +19,8 @@ function isValidCommit(id) {
   return check.shortCommitId(id) || isUnknown(id)
 }
 
-function initRaygunClient(raygunApiKey, addRenderValue, commitId) {
-  la(check.fn(addRenderValue), 'missing addRenderValue function');
-  la(check.unemptyString(commitId), 'unknown commit id', commitId);
-  la(isValidCommit(commitId), 'not a commit sha', commitId);
-
-  var raygunClient = new raygun.Client().init({ apiKey: raygunApiKey });
-  process.on('uncaughtException', function onError(err) {
-    raygunClient.send(err, { commit: commitId });
-    console.error(err);
-    process.exit(-1);
-  });
-
-  // raygun requires version to be 4 numbers, add fake one
-  var raygunVersion = '0.' + pkg.version;
-  raygunClient.setVersion(raygunVersion);
-
-  addRenderValue('raygunApiKey', raygunApiKey || '');
-  addRenderValue('raygunVersion', raygunVersion || '');
-  addRenderValue('raygunExcludedHostnames', JSON.stringify(excludedDomains));
-
-  console.log('initialized Raygun error reporting, commit id %s, version %s',
-    commitId, raygunVersion);
-  return raygunClient.expressHandler;
+function getRaygunApiKey(config) {
+  return config('RAYGUN') || config('RAYGUN_APIKEY');
 }
 
 function initMiddleware(config, addRenderValue, commitId) {
@@ -53,7 +30,7 @@ function initMiddleware(config, addRenderValue, commitId) {
 
   console.log('init crash middleware for commit "%s"', commitId);
 
-  var raygunApiKey = config('RAYGUN') || config('RAYGUN_APIKEY');
+  var raygunApiKey = getRaygunApiKey(config);
   if (check.unemptyString(raygunApiKey)) {
     return initRaygunClient(raygunApiKey, addRenderValue, commitId);
   }
