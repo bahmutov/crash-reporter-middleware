@@ -1,15 +1,16 @@
 {
   "name": "crash-reporter-middleware",
-  "version": "1.2.7",
   "description": "Middleware for reporting crashes to any error monitoring service (Sentry, Raygun, etc)",
+  "version": "0.0.0-semantic-release",
   "main": "index.js",
   "scripts": {
     "test": "npm run lint && node index.js",
-    "lint": "eslint index.js src/*.js"
+    "lint": "eslint index.js src/*.js",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bahmutov/crash-reporter-middleware.git"
+    "url": "https://github.com/bahmutov/crash-reporter-middleware.git"
   },
   "keywords": [
     "connect",
@@ -36,7 +37,8 @@
     "render-vars": "0.1.1"
   },
   "devDependencies": {
-    "eslint": "1.6.0"
+    "eslint": "1.6.0",
+    "semantic-release": "^4.3.5"
   },
   "eslintConfig": {
     "env": {
