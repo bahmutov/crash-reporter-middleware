@@ -4,8 +4,9 @@
   "version": "0.0.0-semantic-release",
   "main": "index.js",
   "scripts": {
-    "test": "npm run lint && node index.js",
-    "lint": "eslint index.js src/*.js",
+    "pretest": "npm run lint",
+    "test": "node index.js",
+    "lint": "standard --verbose index.js src/*.js",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
@@ -30,22 +31,14 @@
   },
   "homepage": "https://github.com/bahmutov/crash-reporter-middleware#readme",
   "dependencies": {
-    "check-more-types": "2.1.1",
+    "check-more-types": "2.10.0",
     "last-commit": "0.3.1",
-    "lazy-ass": "0.6.0",
+    "lazy-ass": "1.4.0",
     "raygun": "0.7.1",
     "render-vars": "0.1.1"
   },
   "devDependencies": {
-    "eslint": "1.6.0",
-    "semantic-release": "^4.3.5"
-  },
-  "eslintConfig": {
-    "env": {
-      "node": true
-    },
-    "globals": {
-      "la": true
-    }
+    "semantic-release": "^4.3.5",
+    "standard": "6.0.7"
   }
 }
