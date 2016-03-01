@@ -8,6 +8,12 @@ const excludedDomains = ['localhost', '127.0.0.1']
 
 function noop () {}
 
+function objectify (o) {
+  return function get (property) {
+    return o[property]
+  }
+}
+
 function getRaygunApiKey (config) {
   return config('RAYGUN') || config('RAYGUN_APIKEY')
 }
@@ -59,5 +65,5 @@ module.exports = {
 
 if (!module.parent) {
   console.log('demo raygun case')
-  init('apiKey', noop, 'unknown')
+  init(objectify({ RAYGUN: 'apiKey' }), noop, 'unknown')
 }
