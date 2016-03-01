@@ -35,18 +35,20 @@
     "check-more-types": "2.10.0",
     "last-commit": "0.3.1",
     "lazy-ass": "1.4.0",
-    "raygun": "0.7.1",
+    "raygun": "0.8.5",
     "render-vars": "0.1.1"
   },
   "devDependencies": {
     "pre-git": "3.4.0",
-    "semantic-release": "^4.3.5",
+    "semantic-release": "6.2.0",
     "standard": "6.0.7"
   },
   "config": {
     "pre-git": {
       "commit-msg": "simple",
-      "pre-commit": ["npm test"],
+      "pre-commit": [
+        "npm test"
+      ],
       "pre-push": [],
       "post-commit": [],
       "post-merge": []
