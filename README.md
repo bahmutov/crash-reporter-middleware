@@ -5,18 +5,17 @@
 [![NPM][crash-reporter-middleware-icon] ][crash-reporter-middleware-url]
 
 [![Build status][crash-reporter-middleware-ci-image] ][crash-reporter-middleware-ci-url]
-[![dependencies][crash-reporter-middleware-dependencies-image] ][crash-reporter-middleware-dependencies-url]
-[![devdependencies][crash-reporter-middleware-devdependencies-image] ][crash-reporter-middleware-devdependencies-url]
 [![Circle CI](https://circleci.com/gh/bahmutov/crash-reporter-middleware.svg?style=svg) ](https://circleci.com/gh/bahmutov/crash-reporter-middleware)
+[![semantic-release][semantic-image] ][semantic-url]
 
 [crash-reporter-middleware-icon]: https://nodei.co/npm/crash-reporter-middleware.png?downloads=true
 [crash-reporter-middleware-url]: https://npmjs.org/package/crash-reporter-middleware
 [crash-reporter-middleware-ci-image]: https://travis-ci.org/bahmutov/crash-reporter-middleware.png?branch=master
 [crash-reporter-middleware-ci-url]: https://travis-ci.org/bahmutov/crash-reporter-middleware
-[crash-reporter-middleware-dependencies-image]: https://david-dm.org/bahmutov/crash-reporter-middleware.png
-[crash-reporter-middleware-dependencies-url]: https://david-dm.org/bahmutov/crash-reporter-middleware
-[crash-reporter-middleware-devdependencies-image]: https://david-dm.org/bahmutov/crash-reporter-middleware/dev-status.png
-[crash-reporter-middleware-devdependencies-url]: https://david-dm.org/bahmutov/crash-reporter-middleware#info=devDependencies
+[semantic-image]: https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg
+[semantic-url]: https://github.com/semantic-release/semantic-release
+
+## Use example
 
 ```js
 var app = express();
@@ -66,6 +65,10 @@ Just add to your server routes and curl GET the crash endpoint to generate excep
 It will add the `RAYGUN_APIKEY` to the list of config variables.
 
 Need some other service? Open an issue!
+
+## Related
+
+* [crasher](https://github.com/bahmutov/crasher) - add an endpoint for generating fake test crashes
 
 ### Small print
 
