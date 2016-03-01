@@ -34,14 +34,22 @@ function initMiddleware (config, addRenderValue, commitId) {
 
   if (raygunClient.isConfigured(config)) {
     console.log('using Raygun client settings')
-    return raygunClient.init(config, addRenderValue, commitId
-    )
+    return raygunClient.init(config, addRenderValue, commitId)
   }
 
   console.log('skipping error reporting setup - missing any api keys')
   return noop
 }
 
+/*
+  resolves with middleware function. One can use it like
+  initCrashReporting(config, app)
+    .then((middleware) => {
+      if (middleware) {
+        app.use(middleware)
+      }
+    })
+*/
 function initCrashReporting (config, server) {
   la(check.fn(config), 'missing config get function', config)
   la(check.fn(server), 'missing server', server)
