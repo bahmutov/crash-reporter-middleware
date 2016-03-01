@@ -1,15 +1,27 @@
 const la = require('lazy-ass')
-var check = require('check-more-types')
-var raygun = require('raygun')
-var exists = require('fs').existsSync
-var read = require('fs').readFileSync
+const check = require('check-more-types')
+const raygun = require('raygun')
+const exists = require('fs').existsSync
+const read = require('fs').readFileSync
 
-var excludedDomains = ['localhost', '127.0.0.1']
+const excludedDomains = ['localhost', '127.0.0.1']
 
 function noop () {}
 
-function initRaygunClient (raygunApiKey, addRenderValue, commitId) {
+function getRaygunApiKey (config) {
+  return config('RAYGUN') || config('RAYGUN_APIKEY')
+}
+
+function isConfigured (config) {
+  la(check.fn(config), 'missing config function', config)
+  return check.unemptyString(getRaygunApiKey(config))
+}
+
+function init (config, addRenderValue, commitId) {
+  la(check.fn(config), 'missing config function', config)
+  const raygunApiKey = getRaygunApiKey(config)
   la(check.unemptyString(raygunApiKey), 'missing raygun api key', raygunApiKey)
+
   la(check.fn(addRenderValue), 'missing addRenderValue function')
   la(check.unemptyString(commitId), 'unknown commit id', commitId)
 
@@ -40,9 +52,12 @@ function initRaygunClient (raygunApiKey, addRenderValue, commitId) {
   return raygunClient.expressHandler
 }
 
-module.exports = initRaygunClient
+module.exports = {
+  isConfigured: isConfigured,
+  init: init
+}
 
 if (!module.parent) {
   console.log('demo raygun case')
-  initRaygunClient('apiKey', noop, 'unknown')
+  init('apiKey', noop, 'unknown')
 }
