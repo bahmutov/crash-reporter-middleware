@@ -2,11 +2,17 @@ const la = require('lazy-ass')
 const check = require('check-more-types')
 
 // available crash reporting clients
-var raygunClient = require('./src/raygun')
+const raygunClient = require('./src/raygun')
 
-var getLastCommitId = require('last-commit')
+const isClient = check.schema({
+  isConfigured: check.fn,
+  init: check.fn
+})
+la(isClient(raygunClient), 'bad raygun client', raygunClient)
+
+const getLastCommitId = require('last-commit')
 la(check.fn(getLastCommitId), 'missing last commit function')
-var renderVars = require('render-vars')
+const renderVars = require('render-vars')
 la(check.fn(renderVars), 'expected render vars function', renderVars)
 
 function noop () {}
