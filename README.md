@@ -35,6 +35,8 @@ This middleware tries to figure out what error reporting service you have by ins
 variables. For example, if you have `RAYGUN_APIKEY` in the environment, it will initialize the 
 [Raygun](https://www.npmjs.com/package/raygun) client.
 
+## Options
+
 **getSettings** - a function that returns settings. For example if you just want to use the environment
 variables, you might write a function yourself
 
@@ -59,7 +61,7 @@ in [next-update-stats](https://github.com/bahmutov/next-update-stats) in the fil
 Good companion middleware for testing the runtime exception setup is [crasher](https://www.npmjs.com/package/crasher).
 Just add to your server routes and curl GET the crash endpoint to generate exceptions.
 
-## Error reporting services
+## Supported error reporting services
 
 [Raygun.io](https://raygun.io/) via Heroku - just enable the free add-on for your Node application.
 It will add the `RAYGUN_APIKEY` to the list of config variables.
@@ -69,6 +71,7 @@ Need some other service? Open an issue!
 ## Related
 
 * [crasher](https://github.com/bahmutov/crasher) - add an endpoint for generating fake test crashes
+* [raven-express](https://github.com/bahmutov/raven-express) - Sentry client for Node Express server
 
 ### Small print
 
