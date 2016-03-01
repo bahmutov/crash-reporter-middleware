@@ -23,6 +23,10 @@ function getRaygunApiKey (config) {
   return config('RAYGUN') || config('RAYGUN_APIKEY')
 }
 
+function hasRaygun (config) {
+  return check.unemptyString(getRaygunApiKey(config))
+}
+
 function initMiddleware (config, addRenderValue, commitId) {
   la(check.fn(addRenderValue), 'missing addRenderValue function')
   la(check.unemptyString(commitId), 'unknown commit id', commitId)
@@ -30,12 +34,14 @@ function initMiddleware (config, addRenderValue, commitId) {
 
   console.log('init crash middleware for commit "%s"', commitId)
 
-  var raygunApiKey = getRaygunApiKey(config)
-  if (check.unemptyString(raygunApiKey)) {
-    return initRaygunClient(raygunApiKey, addRenderValue, commitId)
+  if (hasRaygun(config)) {
+    console.log('using Raygun client settings')
+    return initRaygunClient(
+      getRaygunApiKey(config), addRenderValue, commitId
+    )
   }
 
-  console.log('skipping error reporting setup - missing api key')
+  console.log('skipping error reporting setup - missing any api keys')
   return noop
 }
 
